@@ -1,0 +1,27 @@
+:root[theme-color='light'] {
+   --content-background-color: #fafafa;
+   --header-background-color: #f9f9f9;
+   --header-box-shadow: 0 0 13px 5px #e7e7e7;
+   --text-color: #2b333e;
+   --text-color-hover: #00bcd4;
+   --blockquote-border-color: #bababa;
+   --border-color: 1px solid #e2e2e2;
+   --search-input-background-color: #e7e7e7;
+   --icon-active-color: #00bcd4;
+   --tag-background-color: #00bcd4;
+   --pre-background-color: #e7e7e7;
+}
+
+:root[theme-color='QingHui'] {
+   --content-background-color: #2b333e;
+   --header-background-color: #272f3a;
+   --header-box-shadow: 0 0 5px 0px #1e1e1e;
+   --text-color: #c7c7c7;
+   --text-color-hover: #00bcd4;
+   --blockquote-border-color: #bababa;
+   --border-color: 1px solid #2b2c2c;
+   --search-input-background-color: #343b44;
+   --icon-active-color: #00bcd4;
+   --tag-background-color: #006774;
+   --pre-background-color: #353d47;
+}

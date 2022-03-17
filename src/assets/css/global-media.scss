@@ -1,0 +1,20 @@
+@media screen and (max-width: 1000px) {
+   .wengx-home-layout {
+      .wengx-main {
+         .left-menu {
+            width: 0 !important;
+         }
+      }
+   }
+   .wengx-header-nav {
+      .unfold-icon {
+         opacity: 1 !important;
+      }
+      .nav-left {
+         transform: translate(0, 0) !important;
+      }
+   }
+}
+
+@media screen and (max-width: 700px) {
+}
