@@ -1,36 +1,47 @@
 <template>
-   <div id="master" class="md-body"></div>
+   <div id="master" class="md-body" ref="markdownContainer"></div>
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, ref } from 'vue';
-import { useRoute } from 'vue-router';
-import showdown from 'showdown';
-import axios from 'axios';
+import { defineComponent, ref, watchEffect } from "vue";
+import { useRoute } from "vue-router";
+import { memoize } from "lodash";
+import showdown from "showdown";
+import axios from "axios";
+
+const fetchPost = memoize((url: string) => {
+   return axios.get<string>(url).then((res) => res.data);
+});
 
 export default defineComponent({
    setup() {
       const route = useRoute();
       const converter = new showdown.Converter();
 
-      const getMarkdownData = async () => {
-         const path = (route.path as string) != '/' ? (route.path as string) : '/demo/home.md';
-         const res = await axios.get(path);
+      const markdownContainer = ref<HTMLDivElement>();
+
+      watchEffect(async () => {
+         let path = route.path;
+
+         if (path === "/") {
+            path = "/demo/home.md";
+         }
+
+         const markdown = await fetchPost(path);
 
          // 编译 markdown 并给关键字加上带有 class 的 span 标签
          const html = converter
-            .makeHtml(res.data)
-            .replaceAll('const', '<span class="const">const</span>')
-            .replaceAll('return', '<span class="return">return</span>')
-            .replaceAll('string', '<span class="string">string</span>');
+            .makeHtml(markdown)
+            .replaceAll("const", '<span class="const">const</span>')
+            .replaceAll("return", '<span class="return">return</span>')
+            .replaceAll("string", '<span class="string">string</span>');
 
-         document.getElementById('master')!.innerHTML = html;
+         markdownContainer.value!.innerHTML = html;
+      });
+
+      return {
+         markdownContainer,
       };
-      getMarkdownData();
-
-      watch(route, getMarkdownData);
-      // 78,201,176
-      return {};
    },
 });
 </script>
@@ -45,7 +56,7 @@ export default defineComponent({
       vertical-align: middle;
    }
 
-   img[alt='avatar'] {
+   img[alt="avatar"] {
       border-radius: 50%;
       width: 150px;
       height: 150px;
