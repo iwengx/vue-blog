@@ -1,6 +1,7 @@
 <template>
    <header class="wengx-header-nav">
       <div class="nav-left">
+         <!-- fold icon -->
          <svg
             width="29"
             height="29"
@@ -40,6 +41,7 @@
                stroke-linejoin="round"
             />
          </svg>
+         <!-- home icon -->
          <svg
             width="29"
             height="29"
@@ -193,6 +195,7 @@
             />
          </svg>
          <a href="https://github.com/wengx-unx" target="_blank">
+            <!-- GitHub icon -->
             <svg
                width="29"
                height="29"
@@ -235,37 +238,35 @@ export default defineComponent({
       const router = useRouter();
 
       // sun and moon icon dom
-      const sun = ref(),
-         moon = ref();
+      const sun = ref<HTMLElement>(),
+         moon = ref<HTMLElement>();
 
-      let foldIconDom = ref<HTMLElement | null>(null);
+      let foldIconDom = ref<HTMLElement>();
 
       /**
        * 重新封装 旋转图标
        */
       const unfoldIconClickEvent = () => {
-         if (foldIconDom.value) {
-            if (props.changeAsideWidth()) {
-               foldIconDom.value.style.setProperty('transform', 'rotate(180deg)');
-            } else {
-               foldIconDom.value.style.setProperty('transform', '');
-            }
+         if (props.changeAsideWidth()) {
+            foldIconDom.value!.style.setProperty('transform', 'rotate(180deg)');
+         } else {
+            foldIconDom.value!.style.setProperty('transform', '');
          }
       };
 
       /**
-       * sun and moon click event
-       * change global css variable by html 'theme-color' attribute
+       * 太阳、月亮 图标点击事件
+       * 修改全局的 html 'theme-color' 属性（切换颜色主题）
        * @param elementName sun or moon
        */
       const changeGlobalEvent = (elementName: 'sum' | 'moon'): void => {
          if (elementName == 'sum') {
-            sun.value.style.display = 'none';
-            moon.value.style.display = 'block';
+            sun.value!.style.display = 'none';
+            moon.value!.style.display = 'block';
             document.documentElement.setAttribute('theme-color', 'QingHui');
          } else {
-            sun.value.style.display = 'block';
-            moon.value.style.display = 'none';
+            sun.value!.style.display = 'block';
+            moon.value!.style.display = 'none';
             document.documentElement.setAttribute('theme-color', 'light');
          }
       };

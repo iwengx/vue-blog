@@ -25,23 +25,20 @@ export default defineComponent({
       'wengx-right-content': RightContent,
    },
    setup() {
-      let asideElement = ref<HTMLElement | null>(null);
+      let asideElement = ref<HTMLElement>();
 
       /**
        * aside 隐藏和显示
        * @returns false关闭，true打开
        */
-      const unfoldIconClickEvent = (): boolean => {
-         if (asideElement.value) {
-            if (asideElement.value.style.width) {
-               asideElement.value.style.setProperty('width', '');
-               return false;
-            } else {
-               asideElement.value.style.setProperty('width', '350px', 'important');
-               return true;
-            }
+      const unfoldIconClickEvent: Function = (): boolean => {
+         if (asideElement.value!.style.width) {
+            asideElement.value!.style.setProperty('width', '');
+            return false;
+         } else {
+            asideElement.value!.style.setProperty('width', '350px', 'important');
+            return true;
          }
-         return false;
       };
 
       return { asideElement, unfoldIconClickEvent };
