@@ -32,10 +32,10 @@
                stroke-linejoin="round"
             />
          </svg>
-         <input class="search-input" v-model="filterText" type="text" placeholder="搜索" />
+         <input class="search-input" v-model="searchTerm" type="text" placeholder="搜索" />
       </div>
       <div class="list">
-         <div v-for="data in filterList" class="list-box">
+         <div v-for="data in filteredList" class="list-box">
             <a :href="data.path" class="list-title">{{ data.title }}</a>
             <div v-for="item in data.children" class="list-item">
                <div class="child-title">
@@ -47,8 +47,8 @@
    </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, watch } from 'vue';
+<script lang="ts" setup>
+import { computed, ref } from 'vue';
 
 type ListParamType = {
    title: string;
@@ -86,33 +86,24 @@ const list: ListParamType[] = [
    },
 ];
 
-export default defineComponent({
-   setup() {
-      let filterList = ref<ListParamType[]>(list);
-      let filterText = ref<string>('');
+const searchTerm = ref('');
 
-      /**
-       * 监听 搜索框 文本内容
-       */
-      watch(filterText, () => {
-         // 筛选出匹配的子项，再去除空的父项
-         filterList.value = list
-            .map((data: ListParamType) => {
-               return {
-                  ...data,
-                  children: data.children.filter((child: listChildrenType) => {
-                     return child.title
-                        .toLocaleLowerCase()
-                        .includes(filterText.value.toLocaleLowerCase());
-                  }),
-               };
-            })
-            .filter((data: ListParamType) => data.children.length > 0);
-      });
+// 筛选出匹配的子项，再去除空的父项
+const filteredList = computed(() => {
+   return list
+      .map((data) => {
+         return {
+            ...data,
+            children: data.children.filter((child) => {
+               return child.title
+                  .toLocaleLowerCase()
+                  .includes(searchTerm.value.toLocaleLowerCase());
+            }),
+         };
+      })
+      .filter((data) => data.children.length > 0)
+})
 
-      return { filterList, filterText };
-   },
-});
 </script>
 
 <style lang="scss">
