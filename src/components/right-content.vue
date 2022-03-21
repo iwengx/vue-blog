@@ -1,5 +1,5 @@
 <template>
-   <div id="master" class="md-body" ref="markdownContainer"></div>
+   <div id="master" class="md-body" v-html="contentHTML"></div>
 </template>
 
 <script lang="ts">
@@ -9,38 +9,35 @@ import { memoize } from "lodash";
 import showdown from "showdown";
 import axios from "axios";
 
-const fetchPost = memoize((url: string) => {
-   return axios.get<string>(url).then((res) => res.data);
+
+const fetchPost = memoize(async (url: string) => {
+   const converter = new showdown.Converter();
+
+   const response = await axios.get<string>(url);
+   const markdown = response.data
+
+   // 编译 markdown 并给关键字加上带有 class 的 span 标签
+   const html = converter
+      .makeHtml(markdown)
+      .replaceAll("const", '<span class="const">const</span>')
+      .replaceAll("return", '<span class="return">return</span>')
+      .replaceAll("string", '<span class="string">string</span>');
+
+   return html
 });
 
 export default defineComponent({
    setup() {
       const route = useRoute();
-      const converter = new showdown.Converter();
-
-      const markdownContainer = ref<HTMLDivElement>();
+      const contentHTML = ref<string>();
 
       watchEffect(async () => {
-         let path = route.path;
-
-         if (path === "/") {
-            path = "/demo/home.md";
-         }
-
-         const markdown = await fetchPost(path);
-
-         // 编译 markdown 并给关键字加上带有 class 的 span 标签
-         const html = converter
-            .makeHtml(markdown)
-            .replaceAll("const", '<span class="const">const</span>')
-            .replaceAll("return", '<span class="return">return</span>')
-            .replaceAll("string", '<span class="string">string</span>');
-
-         markdownContainer.value!.innerHTML = html;
+         const path = route.path === "/" ? "/demo/home.md" : route.path
+         contentHTML.value = await fetchPost(path)
       });
 
       return {
-         markdownContainer,
+         contentHTML
       };
    },
 });
