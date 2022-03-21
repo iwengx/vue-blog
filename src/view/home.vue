@@ -3,7 +3,18 @@
       <wengx-header :changeAsideWidth="unfoldIconClickEvent"></wengx-header>
       <main class="wengx-main">
          <aside ref="asideElement" class="left-menu">
-            <wengx-left-menu></wengx-left-menu>
+            <suspense>
+               <template #default>
+                  <wengx-left-menu></wengx-left-menu>
+               </template>
+               <template #fallback>
+                  <div class="skeleton-box">
+                     <div class="skeleton"></div>
+                     <div class="skeleton"></div>
+                     <div class="skeleton"></div>
+                  </div>
+               </template>
+            </suspense>
          </aside>
          <article class="right-content">
             <wengx-right-content></wengx-right-content>
@@ -63,6 +74,27 @@ export default defineComponent({
          border-right: var(--border-color);
          overflow: hidden;
          transition: border 0.2s ease, width 0.5s ease;
+
+         .skeleton-box {
+            margin-top: 20px;
+         }
+
+         .skeleton {
+            height: 25px;
+            margin: 15px;
+            border-radius: 4px;
+            background-color: #dfdfdf;
+            background: linear-gradient(
+                  100deg,
+                  rgba(255, 255, 255, 0) 40%,
+                  rgba(255, 255, 255, 0.5) 50%,
+                  rgba(255, 255, 255, 0) 60%
+               )
+               #dfdfdf;
+            background-size: 200% 100%;
+            background-position-x: 180%;
+            animation: 1.2s loading ease-in-out infinite;
+         }
       }
 
       .right-content {
@@ -71,6 +103,12 @@ export default defineComponent({
          margin: 0 auto;
          padding: 30px;
       }
+   }
+}
+
+@keyframes loading {
+   to {
+      background-position-x: -20%;
    }
 }
 </style>
