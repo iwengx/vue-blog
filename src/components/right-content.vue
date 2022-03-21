@@ -3,27 +3,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from "vue";
-import { useRoute } from "vue-router";
-import { memoize } from "lodash";
-import showdown from "showdown";
-import axios from "axios";
+import { defineComponent, ref, watchEffect } from 'vue';
+import { useRoute } from 'vue-router';
+import { memoize } from 'lodash';
+import showdown from 'showdown';
+import axios from 'axios';
 
+const converter = new showdown.Converter({
+   emoji: true,
+});
 
 const fetchPost = memoize(async (url: string) => {
-   const converter = new showdown.Converter();
-
    const response = await axios.get<string>(url);
-   const markdown = response.data
+   const markdown = response.data;
 
    // 编译 markdown 并给关键字加上带有 class 的 span 标签
    const html = converter
       .makeHtml(markdown)
-      .replaceAll("const", '<span class="const">const</span>')
-      .replaceAll("return", '<span class="return">return</span>')
-      .replaceAll("string", '<span class="string">string</span>');
+      .replaceAll('const', '<span class="const">const</span>')
+      .replaceAll('return', '<span class="return">return</span>')
+      .replaceAll('string', '<span class="string">string</span>');
 
-   return html
+   return html;
 });
 
 export default defineComponent({
@@ -32,12 +33,12 @@ export default defineComponent({
       const contentHTML = ref<string>();
 
       watchEffect(async () => {
-         const path = route.path === "/" ? "/demo/home.md" : route.path
-         contentHTML.value = await fetchPost(path)
+         const path = route.path === '/' ? '/demo/home.md' : route.path;
+         contentHTML.value = await fetchPost(path);
       });
 
       return {
-         contentHTML
+         contentHTML,
       };
    },
 });
@@ -53,7 +54,7 @@ export default defineComponent({
       vertical-align: middle;
    }
 
-   img[alt="avatar"] {
+   img[alt='avatar'] {
       border-radius: 50%;
       width: 150px;
       height: 150px;
