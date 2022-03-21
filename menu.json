@@ -1,0 +1,26 @@
+{
+   "menuList": [
+      {
+         "title": "JavaScript",
+         "children": [
+            {
+               "title": "函数匹配字符串",
+               "path": "/#/demo/js/function-matching-string.md"
+            }
+         ]
+      },
+      {
+         "title": "css",
+         "children": [
+            {
+               "title": "修改滚动条样式",
+               "path": "/#/demo/js/function-matching-string.md"
+            },
+            {
+               "title": "输入框（input）",
+               "path": "/#/demo/js/js2.md"
+            }
+         ]
+      }
+   ]
+}

@@ -35,11 +35,11 @@
          <input class="search-input" v-model="searchTerm" type="text" placeholder="搜索" />
       </div>
       <div class="list">
-         <div v-for="data in filteredList" class="list-box">
-            <a :href="data.path" class="list-title">{{ data.title }}</a>
-            <div v-for="item in data.children" class="list-item">
+         <div v-for="item in filteredList" class="list-box">
+            <a :href="item.path" class="list-title">{{ item.title }}</a>
+            <div v-for="child in item.children" class="list-item">
                <div class="child-title">
-                  <a :href="item.path">{{ item.title }}</a>
+                  <a :href="child.path">{{ child.title }}</a>
                </div>
             </div>
          </div>
@@ -47,63 +47,44 @@
    </div>
 </template>
 
-<script lang="ts" setup>
-import { computed, ref } from 'vue';
+<script lang="ts">
+import { defineComponent, computed, ref } from 'vue';
+import axios from 'axios';
 
-type ListParamType = {
+type MenuParamsType = {
    title: string;
    path?: string;
-   children: listChildrenType[];
+   children: MenuParamsType[];
 };
 
-type listChildrenType = {
-   title: string;
-   path: string;
+const getMenu = async () => {
+   const res = await axios.get('/menu.json');
+   return res.data.menuList;
 };
 
-const list: ListParamType[] = [
-   {
-      title: 'JavaScript',
-      children: [
-         {
-            title: '函数匹配字符串',
-            path: '/#/demo/js/function-matching-string.md',
-         },
-      ],
+export default defineComponent({
+   async setup() {
+      const meunList = (await getMenu()) as MenuParamsType[];
+      const searchTerm = ref<string>('');
+
+      // 筛选出匹配的子项，再去除空的父项
+      const filteredList = computed(() => {
+         return meunList
+            .map((item: MenuParamsType) => {
+               return {
+                  ...item,
+                  children: item.children.filter((child: MenuParamsType) => {
+                     return child.title
+                        .toLocaleLowerCase()
+                        .includes(searchTerm.value.toLocaleLowerCase());
+                  }),
+               };
+            })
+            .filter((item) => item.children.length > 0);
+      });
+      return { filteredList, searchTerm };
    },
-   {
-      title: 'css',
-      children: [
-         {
-            title: '修改滚动条样式',
-            path: '/#/demo/js/function-matching-string.md',
-         },
-         {
-            title: '输入框（input）',
-            path: '/#/demo/js/js2.md',
-         },
-      ],
-   },
-];
-
-const searchTerm = ref('');
-
-// 筛选出匹配的子项，再去除空的父项
-const filteredList = computed(() => {
-   return list
-      .map((data) => {
-         return {
-            ...data,
-            children: data.children.filter((child) => {
-               return child.title
-                  .toLocaleLowerCase()
-                  .includes(searchTerm.value.toLocaleLowerCase());
-            }),
-         };
-      })
-      .filter((data) => data.children.length > 0)
-})
-
+});
 </script>
 
 <style lang="scss">
