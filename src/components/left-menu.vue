@@ -57,14 +57,14 @@ type MenuParamsType = {
    children: MenuParamsType[];
 };
 
-const getMenu = async () => {
+const getMenu = async (): Promise<MenuParamsType[]> => {
    const res = await axios.get('/menu.json');
    return res.data.menuList;
 };
 
 export default defineComponent({
    async setup() {
-      const meunList = (await getMenu()) as MenuParamsType[];
+      const meunList: MenuParamsType[] = await getMenu();
       const searchTerm = ref<string>('');
 
       // 筛选出匹配的子项，再去除空的父项
@@ -80,7 +80,7 @@ export default defineComponent({
                   }),
                };
             })
-            .filter((item) => item.children.length > 0);
+            .filter((item: MenuParamsType) => item.children.length > 0);
       });
       return { filteredList, searchTerm };
    },
