@@ -18,11 +18,13 @@ const fetchPost = memoize(async (url: string) => {
    const markdown = response.data;
 
    // 编译 markdown 并给关键字加上带有 class 的 span 标签
+   // 给 a 标题添加 target="_blank" 属性
    const html = converter
       .makeHtml(markdown)
       .replaceAll('const', '<span class="const">const</span>')
       .replaceAll('return', '<span class="return">return</span>')
-      .replaceAll('string', '<span class="string">string</span>');
+      .replaceAll('string', '<span class="string">string</span>')
+      .replaceAll('<a href=', '<a target="_blank" href=');
 
    return html;
 });
