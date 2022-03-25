@@ -85,12 +85,11 @@ export default defineComponent({
       overflow: auto;
       font-size: 85%;
       line-height: 1.45;
-
       background-color: var(--pre-background-color);
       border-radius: 6px;
 
       code {
-         color: var(--text-color);
+         color: #e0e0e0;
          font-size: 1.2em;
          font-family: Consolas;
       }
