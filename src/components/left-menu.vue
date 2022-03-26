@@ -35,21 +35,27 @@
          <input class="search-input" v-model="searchTerm" type="text" placeholder="搜索" />
       </div>
       <div class="list">
-         <div v-for="item in filteredList" class="list-box">
-            <a :href="item.path" class="list-title">{{ item.title }}</a>
-            <div v-for="child in item.children" class="list-item">
-               <div class="child-title">
-                  <a :href="child.path">{{ child.title }}</a>
-               </div>
-            </div>
+         <div v-for="item in filteredList">
+            <details open>
+               <summary class="list-title">{{ item.title }}</summary>
+               <ul>
+                  <li
+                     v-for="child in item.children"
+                     :class="`list-item ${currentUrl == child.path ? 'active' : ''}`"
+                  >
+                     <a :href="child.path">{{ child.title }}</a>
+                  </li>
+               </ul>
+            </details>
          </div>
       </div>
    </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
+import { defineComponent, computed, ref, watch } from 'vue';
 import axios from 'axios';
+import { useRoute } from 'vue-router';
 
 type MenuParamsType = {
    title: string;
@@ -64,8 +70,10 @@ const getMenu = async (): Promise<MenuParamsType[]> => {
 
 export default defineComponent({
    async setup() {
+      const route = useRoute();
       const meunList: MenuParamsType[] = await getMenu();
       const searchTerm = ref<string>('');
+      let currentUrl = ref<string>('/#' + route.path);
 
       // 筛选出匹配的子项，再去除空的父项
       const filteredList = computed(() => {
@@ -82,7 +90,12 @@ export default defineComponent({
             })
             .filter((item: MenuParamsType) => item.children.length > 0);
       });
-      return { filteredList, searchTerm };
+
+      watch(route, () => {
+         currentUrl.value = '/#' + route.path;
+      });
+
+      return { filteredList, searchTerm, currentUrl };
    },
 });
 </script>
@@ -92,6 +105,18 @@ export default defineComponent({
    width: 350px;
    padding: 20px;
    position: relative;
+
+   ul {
+      li {
+         list-style: none;
+         transition: padding-left 0.2s ease;
+      }
+
+      .active {
+         padding-left: 5px;
+         border-left: 3px solid #00a6f3;
+      }
+   }
 
    .search-icon {
       position: absolute;
@@ -119,6 +144,7 @@ export default defineComponent({
    .list {
       margin: 20px 0;
       letter-spacing: 0.5px;
+      color: var(--text-color);
 
       a {
          text-decoration: none;
@@ -132,6 +158,8 @@ export default defineComponent({
          font-size: 18px;
          font-weight: bold;
          margin-bottom: 10px;
+         outline: none;
+         cursor: pointer;
       }
 
       .list-item {
