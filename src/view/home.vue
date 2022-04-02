@@ -60,7 +60,8 @@ export default defineComponent({
 <style lang="scss">
 .wengx-home-layout {
    width: 100%;
-   min-height: 100vh;
+   height: 100vh;
+   overflow: hidden;
    display: grid;
    grid-template-rows: 65px 1fr;
    background-color: var(--content-background-color);
@@ -68,6 +69,8 @@ export default defineComponent({
    .wengx-main {
       flex: 1;
       display: flex;
+      overflow: hidden;
+
       .left-menu {
          width: 100%;
          max-width: 350px;
@@ -102,6 +105,7 @@ export default defineComponent({
          max-width: 1440px;
          margin: 0 auto;
          padding: 30px;
+         overflow-y: auto;
       }
    }
 }
