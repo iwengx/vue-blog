@@ -25,6 +25,15 @@
                "path": "/#/demo/css/input.md"
             }
          ]
+      },
+      {
+         "title": "Vue-Router",
+         "children": [
+            {
+               "title": "跳转时携带上一个页面的 query",
+               "path": "/#/demo/vue-router/carry-query.md"
+            }
+         ]
       }
    ]
 }
