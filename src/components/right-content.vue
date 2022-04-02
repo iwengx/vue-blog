@@ -52,6 +52,8 @@ export default defineComponent({
 #master {
    color: var(--text-color);
    line-height: 30px;
+   max-width: 1440px;
+   margin: 0 auto;
 
    img {
       margin-right: 10px;

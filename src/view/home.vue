@@ -102,8 +102,6 @@ export default defineComponent({
 
       .right-content {
          flex: 1;
-         max-width: 1440px;
-         margin: 0 auto;
          padding: 30px;
          overflow-y: auto;
       }
