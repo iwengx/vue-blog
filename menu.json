@@ -23,6 +23,10 @@
             {
                "title": "输入框（input）",
                "path": "/#/demo/css/input.md"
+            },
+            {
+               "title": "盒子模型",
+               "path": "/#/demo/css/box-model.md"
             }
          ]
       },
