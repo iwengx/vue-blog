@@ -17,16 +17,30 @@ const fetchPost = memoize(async (url: string) => {
    const response = await axios.get<string>(url);
    const markdown = response.data;
 
-   // 编译 markdown 并给关键字加上带有 class 的 span 标签
-   // 给 a 标题添加 target="_blank" 属性
-   const html = converter
+   // 编译 markdown 并给 a 标题添加 target="_blank" 属性
+   let html: string = converter
       .makeHtml(markdown)
-      .replaceAll('const', '<span class="const">const</span>')
-      .replaceAll('function', '<span class="function">function</span>')
-      .replaceAll('router', '<span class="router">router</span>')
-      .replaceAll('return', '<span class="return">return</span>')
-      .replaceAll('string', '<span class="string">string</span>')
       .replaceAll('<a href=', '<a target="_blank" href=');
+
+   // 单独给 pre 标签内的代码关键字添加带有 class 的 span 标签
+   let preIndex = html.indexOf('<pre>');
+   if (preIndex) {
+      let splitArr = html.split('<pre>');
+      for (let i = 1; i < splitArr.length; i++) {
+         splitArr[i] =
+            splitArr[i]
+               .split('</pre>')[0]
+               .replaceAll('const', '<span class="const">const</span>')
+               .replaceAll('function', '<span class="function">function</span>')
+               .replaceAll('router', '<span class="router">router</span>')
+               .replaceAll('axios', '<span class="axios">axios</span>')
+               .replaceAll('return', '<span class="return">return</span>')
+               .replaceAll('string', '<span class="string">string</span>') +
+            '</pre>' +
+            splitArr[i].split('</pre>')[1];
+      }
+      html = splitArr.join('<pre>');
+   }
 
    return html;
 });
