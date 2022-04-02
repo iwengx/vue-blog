@@ -22,6 +22,8 @@ const fetchPost = memoize(async (url: string) => {
    const html = converter
       .makeHtml(markdown)
       .replaceAll('const', '<span class="const">const</span>')
+      .replaceAll('function', '<span class="function">function</span>')
+      .replaceAll('router', '<span class="router">router</span>')
       .replaceAll('return', '<span class="return">return</span>')
       .replaceAll('string', '<span class="string">string</span>')
       .replaceAll('<a href=', '<a target="_blank" href=');
@@ -94,6 +96,7 @@ export default defineComponent({
          font-family: Consolas;
       }
 
+      .function,
       .const {
          color: #2889d9;
       }
@@ -102,6 +105,9 @@ export default defineComponent({
       }
       .string {
          color: #4ec9b0;
+      }
+      .router {
+         color: #4fc1ff;
       }
    }
 }
