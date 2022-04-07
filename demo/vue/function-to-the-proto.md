@@ -10,7 +10,7 @@
 import Vue from 'vue';
 
 // 声明
-Vue.prototype.callMe = (name: string) => {
+Vue.prototype.$callMe = (name: string) => {
    console.log(`hello ${name}`);
 };
 
@@ -26,7 +26,7 @@ this.callMe('wengx');
 const app = createApp(App);
 
 // 声明
-app.config.globalProperties.callMe = (name: string) => {
+app.config.globalProperties.$callMe = (name: string) => {
    console.log(`hello ${name}`);
 };
 
@@ -46,6 +46,18 @@ updated() {
    this.$callMe('wengx')
 },
 
+```
+
+-  [declare module '@vue/runtime-core'](https://v3.cn.vuejs.org/guide/typescript-support.html#%E4%B8%BA-globalproperties-%E6%89%A9%E5%85%85%E7%B1%BB%E5%9E%8B) 为了告诉 TypeScript 这些新 property，我们可以使用模块扩充
+-  [getCurrentInstance()](https://v3.cn.vuejs.org/api/composition-api.html#getcurrentinstance) 这个方法返回的就是当前组件的实例
+
+<br>
+
+> :hankey: bad code
+
+getCurrentInstance。请不要把它当作在组合式 API 中获取 this 的替代方案来使用（[warning](https://v3.cn.vuejs.org/api/composition-api.html#getcurrentinstance)）
+
+```javascript
 // 在 setup 中需要使用 getCurrentInstance 方法
 import { getCurrentInstance } from 'vue';
 setup() {
@@ -55,13 +67,56 @@ setup() {
    // const proxy = getCurrentInstance()?.proxy;
    proxy?.$callMe('wengx');
 }
-
 ```
 
 <br>
 
--  [getCurrentInstance()](https://v3.cn.vuejs.org/api/composition-api.html#getcurrentinstance) 这个方法返回的就是当前组件的实例
--  [declare module '@vue/runtime-core'](https://v3.cn.vuejs.org/guide/typescript-support.html#%E4%B8%BA-globalproperties-%E6%89%A9%E5%85%85%E7%B1%BB%E5%9E%8B) 为了告诉 TypeScript 这些新 property，我们可以使用[模块扩充 (module augmentation)](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)
+> :+1: good code
+
+Vue 官方文档中已经说明，不要使用这种方案来代替 this
+
+如果项目中有“全局公共函数”的需求时可以考虑以下方案
+
+-  新建一个 public-function.ts 文件，将函数写到里面再引入调用
+-  使用 [应用 API provide](https://v3.cn.vuejs.org/api/application-api.html#provide)，这是对 globalProperties 的替代选择
+
+```javascript
+// main.ts
+const app = createApp(App);
+
+const callMe = (name: string) => {
+   console.log(`hello ${name}`);
+};
+app.provide('callMe', callMe);
+
+// other-component.vue
+import { inject } from 'vue';
+
+setup() {
+   const fun = inject('callMe') as Function;
+   fun();
+}
+```
+
+-  使用 [provide/inject](https://v3.cn.vuejs.org/guide/composition-api-provide-inject.html#%E4%BD%BF%E7%94%A8-provide)
+
+```javascript
+// parent-component.vue
+import { provide } from 'vue';
+
+setup() {
+   provide('callMe', (name: string) => {
+      console.log(`hello ${name}`)
+   })
+}
+
+// child-component.vue
+import { inject } from 'vue';
+
+setup() {
+   (inject('callMe') as Function)('wengx')
+}
+```
 
 <br>
 
