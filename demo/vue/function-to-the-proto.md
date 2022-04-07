@@ -73,50 +73,12 @@ setup() {
 
 > :+1: good code
 
-Vue 官方文档中已经说明，不要使用这种方案来代替 this
+Vue 官方文档中已经说明，不要使用这种方案来代替 this（建议删掉 bad code 采用其他方案）
 
 如果项目中有“全局公共函数”的需求时可以考虑以下方案
 
 -  新建一个 public-function.ts 文件，将函数写到里面再引入调用
--  使用 [应用 API provide](https://v3.cn.vuejs.org/api/application-api.html#provide)，这是对 globalProperties 的替代选择
-
-```javascript
-// main.ts
-const app = createApp(App);
-
-const callMe = (name: string) => {
-   console.log(`hello ${name}`);
-};
-app.provide('callMe', callMe);
-
-// other-component.vue
-import { inject } from 'vue';
-
-setup() {
-   const fun = inject('callMe') as Function;
-   fun();
-}
-```
-
--  使用 [provide/inject](https://v3.cn.vuejs.org/guide/composition-api-provide-inject.html#%E4%BD%BF%E7%94%A8-provide)
-
-```javascript
-// parent-component.vue
-import { provide } from 'vue';
-
-setup() {
-   provide('callMe', (name: string) => {
-      console.log(`hello ${name}`)
-   })
-}
-
-// child-component.vue
-import { inject } from 'vue';
-
-setup() {
-   (inject('callMe') as Function)('wengx')
-}
-```
+-  使用全局状态管理（Vuex、Pinia）
 
 <br>
 
