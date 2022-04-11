@@ -27,17 +27,21 @@ const fetchPost = memoize(async (url: string) => {
    if (preIndex) {
       let splitArr = html.split('<pre>');
       for (let i = 1; i < splitArr.length; i++) {
-         splitArr[i] =
-            splitArr[i]
-               .split('</pre>')[0]
-               .replaceAll('const', '<span class="const">const</span>')
-               .replaceAll('function', '<span class="function">function</span>')
-               .replaceAll('router', '<span class="router">router</span>')
-               .replaceAll('axios', '<span class="axios">axios</span>')
-               .replaceAll('return', '<span class="return">return</span>')
-               .replaceAll('string', '<span class="string">string</span>') +
-            '</pre>' +
-            splitArr[i].split('</pre>')[1];
+         splitArr[i] = splitArr[i]
+            .split('</pre>')[0]
+            .replaceAll('const', '<span class="const">const</span>')
+            .replaceAll('function', '<span class="function">function</span>')
+            .replaceAll('router', '<span class="router">router</span>')
+            .replaceAll('axios', '<span class="axios">axios</span>')
+            .replaceAll('return', '<span class="return">return</span>')
+            .replaceAll('string', '<span class="string">string</span>')
+            .replaceAll('import', '<span class="import">import</span>')
+            .replaceAll('from', '<span class="from">from</span>')
+            .replaceAll('setup', '<span class="setup">setup</span>')
+            .replaceAll('mounted', '<span class="mounted">mounted</span>')
+            .replaceAll('updated', '<span class="updated">updated</span>')
+            .replaceAll('createApp', '<span class="createApp">createApp</span>');
+         '</pre>' + splitArr[i].split('</pre>')[1];
       }
       html = splitArr.join('<pre>');
    }
@@ -124,6 +128,16 @@ export default defineComponent({
       }
       .router {
          color: #4fc1ff;
+      }
+      .import,
+      .from {
+         color: #c586c0;
+      }
+      .createApp,
+      .mounted,
+      .updated,
+      .setup {
+         color: #dcdcaa;
       }
    }
 }
