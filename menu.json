@@ -36,6 +36,10 @@
             {
                "title": "在原型上挂载自定义函数",
                "path": "/#/demo/vue/function-to-the-proto.md"
+            },
+            {
+               "title": "Provide / Inject 的使用",
+               "path": "/#/demo/vue/provide-inject-usage.md"
             }
          ]
       },
