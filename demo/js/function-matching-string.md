@@ -28,3 +28,7 @@ const findString = (key: string): string => ({
 }[key] || 'undefined')
 
 ```
+
+你还有新的想法吗？
+
+快来告诉我吧~
