@@ -14,23 +14,6 @@
          ]
       },
       {
-         "title": "css",
-         "children": [
-            {
-               "title": "修改滚动条样式",
-               "path": "/#/demo/css/scrollbar.md"
-            },
-            {
-               "title": "输入框（input）",
-               "path": "/#/demo/css/input.md"
-            },
-            {
-               "title": "盒子模型",
-               "path": "/#/demo/css/box-model.md"
-            }
-         ]
-      },
-      {
          "title": "Vue",
          "children": [
             {
