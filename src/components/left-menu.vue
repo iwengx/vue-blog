@@ -114,7 +114,7 @@ export default defineComponent({
 
       .active {
          padding-left: 5px;
-         border-left: 3px solid #00a6f3;
+         border-left: 3px solid #3eaf7c;
       }
    }
 
