@@ -4,21 +4,34 @@
          "title": "JavaScript",
          "children": [
             {
-               "title": "函数匹配字符串",
+               "title": "返回匹配的字符串",
                "path": "/#/demo/js/function-matching-string.md"
+            },
+            {
+               "title": "if 中相同变量的判断",
+               "path": "/#/demo/js/if-judgment.md"
             }
          ]
       },
       {
-         "title": "css",
+         "title": "Vue",
          "children": [
             {
-               "title": "修改滚动条样式",
-               "path": "/#/demo/js/function-matching-string.md"
+               "title": "在原型上挂载自定义函数",
+               "path": "/#/demo/vue/function-to-the-proto.md"
             },
             {
-               "title": "输入框（input）",
-               "path": "/#/demo/js/js2.md"
+               "title": "Provide / Inject 的使用",
+               "path": "/#/demo/vue/provide-inject-usage.md"
+            }
+         ]
+      },
+      {
+         "title": "Vue-Router",
+         "children": [
+            {
+               "title": "跳转时携带上一个页面的 query",
+               "path": "/#/demo/vue-router/carry-query.md"
             }
          ]
       }
