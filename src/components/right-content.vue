@@ -1,6 +1,6 @@
 <template>
    <div class="master">
-      <template v-for="(item, index) in contentHTML">
+      <template v-for="(item, index) in contentsHTML" :key="item">
          <template v-if="index % 2 === 0">
             <div v-html="item"></div>
          </template>
@@ -73,15 +73,15 @@ export default defineComponent({
    },
    setup() {
       const route = useRoute();
-      const contentHTML = ref<string[]>();
+      const contentsHTML = ref<string[]>();
 
       watchEffect(async () => {
          const path = route.path === '/' ? '/demo/home.md' : route.path;
-         contentHTML.value = await fetchPost(path);
+         contentsHTML.value = await fetchPost(path);
       });
 
       return {
-         contentHTML,
+         contentsHTML,
       };
    },
 });
@@ -118,9 +118,41 @@ export default defineComponent({
 
    blockquote {
       font-size: 1rem;
-      border-left: 0.4rem solid var(--blockquote-border-color);
       margin: 1rem 0;
-      padding: 0.4rem 0 0.4rem 1rem;
+      padding: 0.1rem 0 0.1rem 1rem;
+      background-color: var(--blockquote-background-color);
+      border-left: 0.4rem solid var(--blockquote-border-color);
+   }
+
+   strong {
+      background-color: var(--strong-background-color);
+      color: var(--strong-color);
+      padding: 0.25rem 0.5rem;
+      font-weight: 500;
+      font-size: 0.85em;
+      border-radius: 3px;
+   }
+
+   h1 {
+      font-size: 2.2rem;
+      line-height: 1.25;
+      margin-bottom: 50px;
+      font-weight: 500;
+   }
+
+   h2 {
+      font-size: 1.65rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid #eaecef;
+      font-weight: 500;
+   }
+
+   h3 {
+      font-weight: 500;
+   }
+
+   p {
+      margin: 16px 0;
    }
 }
 </style>
