@@ -1,6 +1,4 @@
-## Vue 在原型链上挂载自定义函数
-
-`最后编辑：2022-4-7`
+# Vue 在原型链上挂载自定义函数
 
 <br>
 
@@ -53,7 +51,7 @@ updated() {
 
 <br>
 
-> :hankey: bad code
+> 不推荐
 
 getCurrentInstance。请不要把它当作在组合式 API 中获取 this 的替代方案来使用（[warning](https://v3.cn.vuejs.org/api/composition-api.html#getcurrentinstance)）
 
@@ -71,14 +69,13 @@ setup() {
 
 <br>
 
-> :+1: good code
+> 推荐
 
-Vue 官方文档中已经说明，不要使用这种方案来代替 this（建议删掉 bad code 采用其他方案）
+Vue 官方文档中已经说明，不要使用这种方案来代替 this（建议采用其他方案）
 
 如果项目中有“全局公共函数”的需求时可以考虑以下方案
 
 -  新建一个 public-function.ts 文件，将函数写到里面再引入调用
--  使用全局状态管理（Vuex、Pinia）
 
 <br>
 
