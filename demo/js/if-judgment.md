@@ -1,4 +1,8 @@
-## if 中相同变量的判断
+# if 中相同变量的判断
+
+## 介绍
+
+当需要判断一个 变量 是否在数组中时，不妨使用 **includes** 方法试试看。
 
 <br>
 > :hankey: bad code
@@ -14,10 +18,6 @@ const validate = (user: string): boolean => {
 
 <br>
 > :+1: good code
-
-将 有效值 存到一个数组中，利用数组的 includes 方法来简化代码结构
-
-<br>
 
 ```javascript
 const validate = (user: string): boolean => {
