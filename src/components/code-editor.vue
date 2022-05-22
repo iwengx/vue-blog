@@ -8,17 +8,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { toRef } from 'vue';
 import { PrismEditor } from 'vue-prism-editor';
 import 'vue-prism-editor/dist/prismeditor.min.css';
 import prism from 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
 
-const { code } = defineProps({
+const props = defineProps({
    code: String,
 });
 
-let editorCode = ref(code);
+let editorCode = toRef(props, 'code');
 
 const highlighter = (code: string) => {
    return prism.highlight(code, prism.languages.js, 'js');
