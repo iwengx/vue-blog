@@ -102,7 +102,7 @@ export default defineComponent({
 
       .right-content {
          flex: 1;
-         padding: 30px;
+         padding: 30px 80px;
          overflow-y: auto;
       }
    }
