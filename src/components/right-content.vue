@@ -118,9 +118,9 @@ export default defineComponent({
 
    blockquote {
       font-size: 1rem;
-      border-left: 0.2rem solid var(--blockquote-border-color);
+      border-left: 0.4rem solid var(--blockquote-border-color);
       margin: 1rem 0;
-      padding: 0.25rem 0 0.25rem 1rem;
+      padding: 0.4rem 0 0.4rem 1rem;
    }
 }
 </style>
