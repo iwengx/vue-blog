@@ -1,4 +1,4 @@
-## 函数匹配字符串
+## 返回匹配的字符串
 
 <br>
 > :hankey: bad code
@@ -28,7 +28,3 @@ const findString = (key: string): string => ({
 }[key] || 'undefined')
 
 ```
-
-你还有新的想法吗？
-
-快来告诉我吧~

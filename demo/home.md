@@ -6,7 +6,7 @@
 
 <br>
 
-不定期更新学习过程中遇到有趣的 CSS 创意和 JavaScript :+1: code 等...
+不定期更新学习过程中遇到有意思的问题和知识点等。
 
 <br>
 
@@ -18,10 +18,12 @@
 
 <br>
 
-> ### 无任何后端和数据库，My blog 实现原理：
+> ### 无任何后端和数据库，其实现原理：
 
 -  文档内容采用 markdown 文件存储；
 
--  通过 [axios](https://axios-http.com/) 读取文件内容；
+-  通过 [Axios](https://axios-http.com/) 读取文件内容；
 
--  通过 [vue-showdown](https://github.com/meteorlxy/vue-showdown) 将 markdown 语法解析为 HTML 元素，并显示出来；
+-  通过 [Vue-Showdown](https://github.com/meteorlxy/vue-showdown) 将 Markdown 语法解析为 HTML 元素；
+
+-  使用 [Vue Prism Editor](https://github.com/koca/vue-prism-editor) 库来高亮代码显示效果。
