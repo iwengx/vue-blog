@@ -1,24 +1,15 @@
 {
    "menuList": [
       {
-         "title": "HTML",
-         "children": [
-            {
-               "title": "Symbols (emoji) 图标",
-               "path": "/#/demo/HTML/Symbols.md"
-            }
-         ]
-      },
-      {
          "title": "JavaScript",
          "children": [
             {
                "title": "返回匹配的字符串",
-               "path": "/#/demo/js/function-matching-string.md"
+               "path": "/demo/js/function-matching-string"
             },
             {
                "title": "if 中相同变量的判断",
-               "path": "/#/demo/js/if-judgment.md"
+               "path": "/demo/js/if-judgment"
             }
          ]
       },
@@ -27,11 +18,11 @@
          "children": [
             {
                "title": "在原型上挂载自定义函数",
-               "path": "/#/demo/vue/function-to-the-proto.md"
+               "path": "/demo/vue/function-to-the-proto"
             },
             {
                "title": "Provide / Inject 的使用",
-               "path": "/#/demo/vue/provide-inject-usage.md"
+               "path": "/demo/vue/provide-inject-usage"
             }
          ]
       },
@@ -40,7 +31,16 @@
          "children": [
             {
                "title": "跳转时携带上一个页面的 query",
-               "path": "/#/demo/vue-router/carry-query.md"
+               "path": "/demo/vue-router/carry-query"
+            }
+         ]
+      },
+      {
+         "title": "其他",
+         "children": [
+            {
+               "title": "Git 基本使用",
+               "path": "/local/git"
             }
          ]
       }
