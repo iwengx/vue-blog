@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 import HomePage from '../view/home.vue';
 
@@ -7,15 +7,41 @@ const routes = [
       path: '/',
       name: 'home',
       component: HomePage,
+      children: [
+         {
+            path: '/',
+            name: 'home-page',
+            component: () => import('../components/right-content.vue'),
+         },
+      ],
    },
    {
-      path: '/demo/:chapters+',
+      path: '/demo',
       name: 'home-md',
       component: HomePage,
+      children: [
+         {
+            path: '/:chapters+',
+            name: 'md-page',
+            component: () => import('../components/right-content.vue'),
+         },
+      ],
+   },
+   {
+      path: '/local',
+      name: 'local-page',
+      component: HomePage,
+      children: [
+         {
+            path: 'git',
+            name: 'git',
+            component: () => import('../articles/git.vue'),
+         },
+      ],
    },
 ];
 
 export const router = createRouter({
-   history: createWebHashHistory(),
+   history: createWebHistory(),
    routes,
 });
