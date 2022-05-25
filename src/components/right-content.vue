@@ -76,7 +76,7 @@ export default defineComponent({
       const contentsHTML = ref<string[]>();
 
       watchEffect(async () => {
-         const path = route.path === '/' ? '/demo/home.md' : route.path;
+         const path = route.path === '/' ? '/demo/home' : route.path;
          if (path.substring(0, 5) != '/demo') return;
          contentsHTML.value = await fetchPost(path + '.md');
       });
