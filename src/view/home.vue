@@ -1,11 +1,11 @@
 <template>
    <div class="wengx-home-layout">
-      <wengx-header :changeAsideWidth="unfoldIconClickEvent"></wengx-header>
+      <Header :changeAsideWidth="unfoldIconClickEvent"></Header>
       <main class="wengx-main">
          <aside ref="asideElement" class="left-menu">
             <suspense>
                <template #default>
-                  <wengx-left-menu></wengx-left-menu>
+                  <LeftMenu></LeftMenu>
                </template>
                <template #fallback>
                   <div class="skeleton-box">
@@ -17,44 +17,32 @@
             </suspense>
          </aside>
          <article class="right-content">
-            <wengx-right-content></wengx-right-content>
+            <router-view></router-view>
          </article>
       </main>
    </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue';
 import Header from '../components/header.vue';
 import LeftMenu from '../components/left-menu.vue';
-import RightContent from '../components/right-content.vue';
 
-export default defineComponent({
-   components: {
-      'wengx-header': Header,
-      'wengx-left-menu': LeftMenu,
-      'wengx-right-content': RightContent,
-   },
-   setup() {
-      let asideElement = ref<HTMLElement>();
+let asideElement = ref<HTMLElement>();
 
-      /**
-       * aside 隐藏和显示
-       * @returns false关闭，true打开
-       */
-      const unfoldIconClickEvent: Function = (): boolean => {
-         if (asideElement.value!.style.width) {
-            asideElement.value!.style.setProperty('width', '');
-            return false;
-         } else {
-            asideElement.value!.style.setProperty('width', '350px', 'important');
-            return true;
-         }
-      };
-
-      return { asideElement, unfoldIconClickEvent };
-   },
-});
+/**
+ * aside 隐藏和显示
+ * @returns false关闭，true打开
+ */
+const unfoldIconClickEvent: Function = (): boolean => {
+   if (asideElement.value!.style.width) {
+      asideElement.value!.style.setProperty('width', '');
+      return false;
+   } else {
+      asideElement.value!.style.setProperty('width', '350px', 'important');
+      return true;
+   }
+};
 </script>
 
 <style lang="scss">
