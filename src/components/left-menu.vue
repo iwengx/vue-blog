@@ -43,7 +43,7 @@
                      v-for="child in item.children"
                      :class="`list-item ${currentUrl == child.path ? 'active' : ''}`"
                   >
-                     <a :href="child.path">{{ child.title }}</a>
+                     <router-link :to="child.path">{{ child.title }}</router-link>
                   </li>
                </ul>
             </details>
@@ -57,11 +57,11 @@ import { defineComponent, computed, ref, watch } from 'vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 
-type MenuParamsType = {
+interface MenuParamsType {
    title: string;
    path?: string;
    children: MenuParamsType[];
-};
+}
 
 const getMenu = async (): Promise<MenuParamsType[]> => {
    const res = await axios.get('/menu.json');
@@ -73,7 +73,7 @@ export default defineComponent({
       const route = useRoute();
       const meunList: MenuParamsType[] = await getMenu();
       const searchTerm = ref<string>('');
-      let currentUrl = ref<string>('/#' + route.path);
+      let currentUrl = ref<string>(route.path);
 
       // 筛选出匹配的子项，再去除空的父项
       const filteredList = computed(() => {
@@ -92,7 +92,7 @@ export default defineComponent({
       });
 
       watch(route, () => {
-         currentUrl.value = '/#' + route.path;
+         currentUrl.value = route.path;
       });
 
       return { filteredList, searchTerm, currentUrl };
