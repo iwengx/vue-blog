@@ -23,6 +23,10 @@
             {
                "title": "Provide / Inject 的使用",
                "path": "/demo/vue/provide-inject-usage"
+            },
+            {
+               "title": "v-for key 的坑",
+               "path": "/vue/for-key"
             }
          ]
       },

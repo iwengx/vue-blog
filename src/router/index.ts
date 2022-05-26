@@ -39,6 +39,18 @@ const routes = [
          },
       ],
    },
+   {
+      path: '/vue',
+      name: 'vue-page',
+      component: HomePage,
+      children: [
+         {
+            path: 'for-key',
+            name: 'forKey',
+            component: () => import('../articles/vue/v-for-key.vue'),
+         },
+      ],
+   },
 ];
 
 export const router = createRouter({
