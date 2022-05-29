@@ -1,6 +1,15 @@
 {
    "menuList": [
       {
+         "title": "HTML",
+         "children": [
+            {
+               "title": "HTML Symbols（emoji）",
+               "path": "/demo/html/Symbols"
+            }
+         ]
+      },
+      {
          "title": "JavaScript",
          "children": [
             {
