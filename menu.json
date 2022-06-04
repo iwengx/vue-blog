@@ -54,6 +54,14 @@
             {
                "title": "Git 基本使用",
                "path": "/local/git"
+            },
+            {
+               "title": "Apache ECharts 多个时的响应式",
+               "path": "/demo/other/apache-echarts-more"
+            },
+            {
+               "title": "Apache ECharts 第二次不显示",
+               "path": "/demo/other/apache-echarts-display"
             }
          ]
       }
