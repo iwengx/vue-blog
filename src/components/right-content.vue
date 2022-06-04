@@ -49,13 +49,17 @@ const fetchPost = memoize(async (url: string) => {
       }
       // 此时得到的 splitFullArr 数组中，偶数是内容块，奇数是代码块
 
-      // 去除代码块中的 <code></code> 标签
+      // 对代码块进行其他操作
       for (let j = 1; j < splitFullArr.length; j += 2) {
          let code = splitFullArr[j];
-         // 去除 <code> 标签
+         // 去除 <code></code> 标签
          code = code.substring(code.indexOf('>') + 1);
-         // 去除 </code> 标签
          code = code.substring(0, code.length - 8);
+
+         // 替换转义字符
+         code = code.replaceAll('&lt;', '<');
+         code = code.replaceAll('&gt;', '>');
+
          // 重新赋值回去
          splitFullArr[j] = code;
       }
