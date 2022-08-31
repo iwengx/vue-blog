@@ -32,7 +32,12 @@
                stroke-linejoin="round"
             />
          </svg>
-         <input class="search-input" v-model="searchTerm" type="text" placeholder="搜索" />
+         <input
+            class="search-input"
+            v-model="searchTerm"
+            type="text"
+            placeholder="搜索"
+         />
       </div>
       <div class="list">
          <div v-for="item in filteredList">
@@ -41,9 +46,13 @@
                <ul>
                   <li
                      v-for="child in item.children"
-                     :class="`list-item ${currentUrl == child.path ? 'active' : ''}`"
+                     :class="`list-item ${
+                        currentUrl == child.path ? 'active' : ''
+                     }`"
                   >
-                     <router-link :to="child.path">{{ child.title }}</router-link>
+                     <router-link :to="child.path || '/404'">
+                        {{ child.title }}
+                     </router-link>
                   </li>
                </ul>
             </details>
