@@ -45,6 +45,10 @@
             {
                "title": "Git 基本使用",
                "path": "/local/git"
+            },
+            {
+               "title": "uni-app + vue3 踩坑集",
+               "path": "/demo/other/uni-app-vue3"
             }
          ]
       }
