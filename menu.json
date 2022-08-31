@@ -1,15 +1,6 @@
 {
    "menuList": [
       {
-         "title": "HTML",
-         "children": [
-            {
-               "title": "HTML Symbols（emoji）",
-               "path": "/demo/html/symbols"
-            }
-         ]
-      },
-      {
          "title": "JavaScript",
          "children": [
             {
@@ -56,12 +47,8 @@
                "path": "/local/git"
             },
             {
-               "title": "Apache ECharts 多个时的响应式",
-               "path": "/demo/other/apache-echarts-more"
-            },
-            {
-               "title": "Apache ECharts 第二次不显示",
-               "path": "/demo/other/apache-echarts-display"
+               "title": "uni-app + vue3 踩坑集",
+               "path": "/demo/other/uni-app-vue3"
             }
          ]
       }
